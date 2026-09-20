@@ -10,8 +10,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
   { value: "5+", label: "Years Coaching" },
-  { value: "CSCS", label: "NSCA Certified (USA)" },
-  { value: "Elite", label: "Cricket Performance" },
+  { value: "CSCS", label: "(Certified Strength and Conditioning Specialist)" },
+  { value: "Elite", label: "Athlete Performance" },
 ];
 
 export default function About() {
@@ -92,9 +92,9 @@ export default function About() {
             data-about-line
             className="mb-8 font-display text-4xl leading-[0.95] text-chalk sm:text-5xl md:text-6xl"
           >
-            Welcome To Our
+            Know More
             <br />
-            Fitness Gym
+            About Us
           </h2>
 
           <p data-about-line className="mb-5 font-body leading-relaxed text-steel">

@@ -146,7 +146,7 @@ export const programs: Program[] = [
       "A progressive strength, power, speed, agility, and conditioning system built around the physical demands of fast bowling.",
     description:
       "A 12-week strength and conditioning pathway for fast bowlers, combining structured gym-based strength and power training with ground-based speed, agility, and conditioning work.",
-    heroImage: "/images/program-cone-drill.jpg",
+    heroImage: "/images/fast-bowling-main.jpg",
     secondaryImages: [
       "/images/program-sprint-drill.jpg",
       "/images/program-deadlift-single-leg.jpg",
@@ -184,7 +184,6 @@ export const programs: Program[] = [
       },
     ],
     highlightTerms: [
-      "Fast Bowler Training Programs",
       "not a beginner programme",
       "strength and conditioning",
       "structured plan",

@@ -25,9 +25,7 @@ export async function POST(request: Request) {
     const keyId = process.env.RAZORPAY_KEY_ID;
     const keySecret = process.env.RAZORPAY_KEY_SECRET;
     const price = Number(process.env.FAST_BOWLING_PROGRAM_PRICE_INR);
-    const emailDeliveryConfigured = Boolean(
-      process.env.RESEND_API_KEY && process.env.PROGRAM_EMAIL_FROM
-    );
+    const emailDeliveryConfigured = Boolean(process.env.RESEND_API_KEY);
 
     if (
       !keyId ||

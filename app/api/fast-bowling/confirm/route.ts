@@ -114,7 +114,9 @@ export async function POST(request: Request) {
     }
 
     const resendApiKey = process.env.RESEND_API_KEY;
-    const emailFrom = process.env.PROGRAM_EMAIL_FROM;
+    const emailFrom =
+      process.env.PROGRAM_EMAIL_FROM ??
+      "Be An Athlete <programs@beanathlete.in>";
 
     if (!resendApiKey || !emailFrom) {
       return NextResponse.json(
