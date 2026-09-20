@@ -77,12 +77,14 @@ export default function About() {
             <p className="font-body text-xs font-bold uppercase tracking-widest text-chalk">
               Hitesh Sharma
             </p>
-            <p className="mt-1 font-display text-4xl leading-none text-bolt">
-              CSCS
-            </p>
-            <p className="mt-1 max-w-xs font-body text-[10px] uppercase tracking-wide text-steel">
-              (Certified Strength and Conditioning Specialist)
-            </p>
+            <div className="mt-1 flex max-w-sm flex-wrap items-baseline gap-x-2 gap-y-1">
+              <span className="font-display text-4xl leading-none text-bolt">
+                CSCS
+              </span>
+              <span className="font-body text-[10px] uppercase tracking-wide text-steel">
+                (Certified Strength and Conditioning Specialist)
+              </span>
+            </div>
           </div>
         </div>
 
