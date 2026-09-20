@@ -74,11 +74,14 @@ export default function About() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
           <div className="absolute bottom-0 left-0 border-t-4 border-bolt bg-ink/90 px-6 py-4">
-            <p className="font-display text-2xl tracking-tight text-chalk">
+            <p className="font-body text-xs font-bold uppercase tracking-widest text-chalk">
               Hitesh Sharma
             </p>
-            <p className="font-body text-xs font-bold uppercase tracking-widest text-bolt">
-              Certified Strength and Conditioning Specialist (CSCS)
+            <p className="mt-1 font-display text-4xl leading-none text-bolt">
+              CSCS
+            </p>
+            <p className="mt-1 max-w-xs font-body text-[10px] uppercase tracking-wide text-steel">
+              (Certified Strength and Conditioning Specialist)
             </p>
           </div>
         </div>
