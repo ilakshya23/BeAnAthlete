@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Program } from "@/lib/programs";
 import type { Testimonial } from "@/lib/testimonials";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
+import FastBowlingPurchase from "@/components/FastBowlingPurchase";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,6 +21,26 @@ const container = {
   hidden: {},
   show: { transition: { staggerChildren: 0.12 } },
 };
+
+function highlightText(text: string, terms: string[] = []) {
+  if (terms.length === 0) return text;
+  const orderedTerms = [...terms].sort((a, b) => b.length - a.length);
+  const escapedTerms = orderedTerms.map((term) =>
+    term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+  );
+  const parts = text.split(new RegExp(`(${escapedTerms.join("|")})`, "gi"));
+  const normalizedTerms = new Set(orderedTerms.map((term) => term.toLowerCase()));
+
+  return parts.map((part, index) =>
+    normalizedTerms.has(part.toLowerCase()) ? (
+      <span key={`${part}-${index}`} className="font-semibold text-bolt">
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+}
 
 export default function ProgramDetail({
   program,
@@ -82,13 +103,13 @@ export default function ProgramDetail({
                 variants={fadeUp}
                 className="mb-6 font-display text-4xl leading-[0.95] text-chalk sm:text-5xl md:text-6xl"
               >
-                {program.title}
+                {highlightText(program.title, program.highlightTerms)}
               </motion.h1>
               <motion.p
                 variants={fadeUp}
                 className="max-w-2xl font-body text-lg leading-relaxed text-steel"
               >
-                {program.description}
+                {highlightText(program.description, program.highlightTerms)}
               </motion.p>
 
               <motion.div variants={fadeUp}>
@@ -128,6 +149,8 @@ export default function ProgramDetail({
       <section className="bg-charcoal px-6 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-5xl">
           <SectionAccordion program={program} />
+
+          {program.paidDownload && <FastBowlingPurchase />}
 
           {/* Closing note */}
           <motion.blockquote
@@ -248,7 +271,7 @@ function SectionAccordion({ program }: { program: Program }) {
                         <li key={idx} className="flex items-start gap-3">
                           <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-bolt" />
                           <span className="font-body leading-relaxed text-steel">
-                            {item}
+                            {highlightText(item, program.highlightTerms)}
                           </span>
                         </li>
                       ))}

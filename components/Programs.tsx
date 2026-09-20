@@ -21,6 +21,26 @@ const card = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
 };
 
+function highlightText(text: string, terms: string[] = []) {
+  if (terms.length === 0) return text;
+  const orderedTerms = [...terms].sort((a, b) => b.length - a.length);
+  const escapedTerms = orderedTerms.map((term) =>
+    term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+  );
+  const parts = text.split(new RegExp(`(${escapedTerms.join("|")})`, "gi"));
+  const normalizedTerms = new Set(orderedTerms.map((term) => term.toLowerCase()));
+
+  return parts.map((part, index) =>
+    normalizedTerms.has(part.toLowerCase()) ? (
+      <span key={`${part}-${index}`} className="text-bolt">
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+}
+
 export default function Programs() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -79,7 +99,7 @@ export default function Programs() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-1 gap-6 md:grid-cols-2"
+          className="grid grid-cols-1 gap-6 md:grid-cols-3"
         >
           {programs.map((p) => (
             <motion.div key={p.id} variants={card}>
@@ -98,10 +118,10 @@ export default function Programs() {
 
                 <div className="mt-10">
                   <h3 className="mb-3 font-display text-2xl tracking-tight text-chalk sm:text-3xl">
-                    {p.title}
+                    {highlightText(p.title, p.highlightTerms)}
                   </h3>
                   <p className="font-body text-sm leading-relaxed text-steel">
-                    {p.blurb}
+                    {highlightText(p.blurb, p.highlightTerms)}
                   </p>
                 </div>
 
@@ -110,19 +130,6 @@ export default function Programs() {
             </motion.div>
           ))}
 
-          {/* Placeholder slot hinting at more programs to come */}
-          <motion.div
-            variants={card}
-            className="flex min-h-[240px] flex-col items-center justify-center border border-dashed border-white/15 p-8 text-center md:col-span-2"
-          >
-            <p className="font-display text-xl text-white/30">
-              More Programs Coming Soon
-            </p>
-            <p className="mt-2 max-w-md font-body text-sm text-steel">
-              New coaching formats are added regularly — check back or get in
-              touch to hear about upcoming programs first.
-            </p>
-          </motion.div>
         </motion.div>
       </div>
     </section>

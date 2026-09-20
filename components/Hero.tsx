@@ -85,7 +85,7 @@ export default function Hero() {
           data-hero-sub
           className="mb-4 font-body text-xs font-bold uppercase tracking-widest2 text-bolt opacity-0"
         >
-          Certified Strength &amp; Conditioning Coaching
+          Train Like An Athlete
         </p>
 
         <h1 className="font-display text-[16vw] leading-[0.85] text-chalk sm:text-[12vw] md:text-[9vw] lg:text-[7.5vw]">

@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 const stats = [
   { value: "5+", label: "Years Coaching" },
   { value: "CSCS", label: "NSCA Certified (USA)" },
-  { value: "Ranji", label: "Trophy Camp Experience" },
+  { value: "Elite", label: "Cricket Performance" },
 ];
 
 export default function About() {
@@ -68,7 +68,7 @@ export default function About() {
         >
           {/* Coach portrait */}
           <img
-            src="/images/coach.jpg"
+            src="/images/coach-profile.png"
             alt="Hitesh Sharma, Strength & Conditioning Coach"
             className="h-full w-full object-cover object-top"
           />
@@ -78,7 +78,7 @@ export default function About() {
               Hitesh Sharma
             </p>
             <p className="font-body text-xs font-bold uppercase tracking-widest text-bolt">
-              CSCS
+              Certified Strength and Conditioning Specialist (CSCS)
             </p>
           </div>
         </div>
@@ -113,8 +113,9 @@ export default function About() {
             Sumit Kumar, Shivam Singh, Angkrish Raghuvanshi, and state-level
             cricketers, and serves as Strength and Conditioning Coach. Former
             professional cricketer with experience at BCCI/NCA Raw Talent,
-            MRF Pace Foundation, and Ranji Trophy camps. Holds CSCS
-            certification from NSCA (USA).
+            MRF Pace Foundation, and Ranji Trophy camps. He is a Certified
+            Strength and Conditioning Specialist (CSCS) through the National
+            Strength and Conditioning Association (NSCA), USA.
           </p>
 
           <div data-about-line className="mb-10 grid grid-cols-3 gap-4 border-y border-white/10 py-6">

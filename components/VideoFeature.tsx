@@ -32,11 +32,29 @@ export default function VideoFeature() {
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    const video = videoRef.current;
+    const wrapper = wrapRef.current;
+    if (!video || !wrapper) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || entry.intersectionRatio < 0.25) {
+          video.pause();
+        }
+      },
+      { threshold: [0, 0.25] }
+    );
+
+    observer.observe(wrapper);
+    return () => observer.disconnect();
+  }, []);
+
   const toggle = () => {
     const v = videoRef.current;
     if (!v) return;
     if (v.paused) {
-      v.play();
+      void v.play();
       setPlaying(true);
     } else {
       v.pause();

@@ -14,12 +14,19 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
 
   const others = programs.filter((p) => p.id !== program.id);
 
-  const relevantTestimonials = testimonials.filter((t) => {
-    if (t.program === "both") return true;
-    if (program.id === "one-on-one-program") return t.program === "programming";
-    if (program.id === "one-on-one-coaching") return t.program === "coaching";
-    return true;
-  });
+  const relevantTestimonials =
+    program.id === "fast-bowling-performance"
+      ? []
+      : testimonials.filter((t) => {
+          if (t.program === "both") return true;
+          if (program.id === "one-on-one-program") {
+            return t.program === "programming";
+          }
+          if (program.id === "one-on-one-coaching") {
+            return t.program === "coaching";
+          }
+          return false;
+        });
 
   return (
     <>

@@ -14,6 +14,8 @@ export type Program = {
   heroImage: string;
   secondaryImages: string[];
   sections: ProgramSection[];
+  highlightTerms?: string[];
+  paidDownload?: boolean;
   closingNote: string;
   href: string;
 };
@@ -65,6 +67,12 @@ export const programs: Program[] = [
           "Better results than random workouts or social media programs.",
         ],
       },
+    ],
+    highlightTerms: [
+      "structured",
+      "personalized",
+      "professional",
+      "sport and goals",
     ],
     closingNote:
       "This option helps athletes train with purpose and structure, ensuring steady progress without relying on random workouts.",
@@ -118,8 +126,82 @@ export const programs: Program[] = [
         ],
       },
     ],
+    highlightTerms: [
+      "supervised",
+      "correct technique",
+      "strength",
+      "power",
+      "speed",
+    ],
     closingNote:
       "Because every session is supervised and customized, 1-on-1 Personal Coaching is considered the gold standard for athlete development.",
     href: "/programs/one-on-one-coaching",
+  },
+  {
+    id: "fast-bowling-performance",
+    number: "03",
+    title: "Fast Bowler Training Programs",
+    subtitle: "Build Strength, Speed, Power & Resilience",
+    blurb:
+      "A progressive strength, power, speed, agility, and conditioning system built around the physical demands of fast bowling.",
+    description:
+      "A 12-week strength and conditioning pathway for fast bowlers, combining structured gym-based strength and power training with ground-based speed, agility, and conditioning work.",
+    heroImage: "/images/program-cone-drill.jpg",
+    secondaryImages: [
+      "/images/program-sprint-drill.jpg",
+      "/images/program-deadlift-single-leg.jpg",
+    ],
+    sections: [
+      {
+        number: "1",
+        title: "Program Structure",
+        items: [
+          "Three non-consecutive strength and conditioning sessions each week.",
+          "A structured plan with clear progression so every session has a purpose.",
+          "A 12-week pathway split into four progressive three-week phases.",
+          "Training volume can be adjusted around practice, travel, and match schedules.",
+        ],
+      },
+      {
+        number: "2",
+        title: "Who This Program Is For",
+        items: [
+          "This is not a beginner programme. It is designed for athletes who already have some training experience but lack a structured plan.",
+          "It is ideal for fast bowlers who often jump from one exercise to another after watching social-media videos and get limited or inconsistent results.",
+          "The programme is built from 12 years of competitive cricket experience, professional Strength and Conditioning Specialist expertise, and extensive research to keep the process simple, practical, and effective.",
+          "You can follow the programme independently and ask Coach Hitesh questions whenever you need guidance.",
+        ],
+      },
+      {
+        number: "3",
+        title: "Why This Program Works",
+        items: [
+          "Train with a plan, not randomly: fast bowling demands strength, power, speed, mobility, conditioning, and the ability to repeatedly produce force. The clear progression gives every session a purpose and works towards making you a stronger, faster, and more resilient fast bowler.",
+          "Complete strength and conditioning: gym-based strength and power work is combined with ground-based conditioning specifically for fast bowlers.",
+          "Every exercise includes a demonstration video and clear instructions, so you know what to do, how to do it, and how to progress.",
+          "Follow the programme at your own pace while developing the physical qualities that matter for fast bowling.",
+        ],
+      },
+    ],
+    highlightTerms: [
+      "Fast Bowler Training Programs",
+      "not a beginner programme",
+      "strength and conditioning",
+      "structured plan",
+      "demonstration video",
+      "fast bowlers",
+      "12-week",
+      "12 years",
+      "strength",
+      "conditioning",
+      "mobility",
+      "resilience",
+      "speed",
+      "power",
+    ],
+    paidDownload: true,
+    closingNote:
+      "Built for trained fast bowlers who want a structured route to greater pace, power, resilience, and repeatable performance.",
+    href: "/programs/fast-bowling-performance",
   },
 ];
