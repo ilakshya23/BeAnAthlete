@@ -9,6 +9,7 @@ import type { Program } from "@/lib/programs";
 import type { Testimonial } from "@/lib/testimonials";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 import FastBowlingPurchase from "@/components/FastBowlingPurchase";
+import BowlingTrainingVideo from "@/components/BowlingTrainingVideo";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -144,6 +145,8 @@ export default function ProgramDetail({
           </div>
         </div>
       </section>
+
+      {program.id === "fast-bowling-performance" && <BowlingTrainingVideo />}
 
       {/* Sections */}
       <section className="bg-charcoal px-6 py-20 md:px-10 md:py-28">

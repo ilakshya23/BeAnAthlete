@@ -152,10 +152,10 @@ export default function FastBowlingPurchase() {
         training. After successful payment, both PDFs are sent to your email.
       </p>
       <div className="mt-5 flex flex-wrap items-center gap-3 font-body">
-        <span className="text-lg text-steel line-through">₹15,000</span>
-        <span className="font-display text-3xl text-bolt">₹7,500</span>
+        <span className="text-lg text-steel line-through">₹10,000</span>
+        <span className="font-display text-3xl text-bolt">₹7,499</span>
         <span className="rounded-sm bg-bolt/15 px-3 py-1 text-xs font-bold uppercase tracking-widest text-bolt">
-          50% Off
+          25% Off
         </span>
       </div>
 
