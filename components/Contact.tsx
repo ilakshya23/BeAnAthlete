@@ -27,7 +27,8 @@ const details = [
 
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [status, setStatus] = useState<"idle" | "sent">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [feedback, setFeedback] = useState("");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
   useEffect(() => {
@@ -51,11 +52,40 @@ export default function Contact() {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Wire this up to your form endpoint / email service of choice.
-    setStatus("sent");
-    setForm({ name: "", email: "", message: "" });
+    const formElement = e.currentTarget;
+    setStatus("sending");
+    setFeedback("Sending your message...");
+
+    try {
+      const formData = new FormData(formElement);
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          website: String(formData.get("website") ?? ""),
+        }),
+      });
+      const result = (await response.json()) as { error?: string };
+
+      if (!response.ok) {
+        throw new Error(result.error || "Unable to send your message.");
+      }
+
+      setStatus("sent");
+      setFeedback("Thanks — your message has been sent. I'll get back to you shortly.");
+      setForm({ name: "", email: "", message: "" });
+      formElement.reset();
+    } catch (error) {
+      setStatus("error");
+      setFeedback(
+        error instanceof Error
+          ? error.message
+          : "Unable to send your message. Please try again."
+      );
+    }
   };
 
   return (
@@ -107,6 +137,14 @@ export default function Contact() {
           onSubmit={handleSubmit}
           className="flex flex-col gap-6"
         >
+          <input
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            className="hidden"
+            aria-hidden="true"
+          />
           <div className="flex flex-col gap-2">
             <label htmlFor="name" className="font-body text-xs font-bold uppercase tracking-widest text-steel">
               Name
@@ -153,23 +191,25 @@ export default function Contact() {
 
           <motion.button
             type="submit"
+            disabled={status === "sending"}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className="mt-4 w-fit rounded-sm bg-bolt px-10 py-4 font-body text-sm font-bold uppercase tracking-widest text-ink"
+            className="mt-4 w-fit rounded-sm bg-bolt px-10 py-4 font-body text-sm font-bold uppercase tracking-widest text-ink disabled:cursor-not-allowed disabled:opacity-60"
           >
-            Send Message
+            {status === "sending" ? "Sending..." : "Send Message"}
           </motion.button>
 
           <AnimatePresence>
-            {status === "sent" && (
+            {feedback && (
               <motion.p
+                key={status}
+                role="status"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="font-body text-sm text-bolt"
+                className={`font-body text-sm ${status === "error" ? "text-red-400" : "text-bolt"}`}
               >
-                Thanks — your message has been sent. I'll get back to you
-                shortly.
+                {feedback}
               </motion.p>
             )}
           </AnimatePresence>
