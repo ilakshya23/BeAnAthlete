@@ -28,7 +28,7 @@ export default function BowlingTrainingVideo() {
     <section className="relative flex min-h-[72svh] items-end overflow-hidden bg-ink px-6 py-20 md:min-h-[82svh] md:px-10 md:py-28">
       <video
         ref={videoRef}
-        className="absolute inset-0 h-full w-full object-cover object-[center_38%] md:object-[center_34%]"
+        className="absolute inset-0 h-full w-full object-cover object-center"
         autoPlay
         muted
         loop
