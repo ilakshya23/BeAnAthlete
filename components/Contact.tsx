@@ -4,32 +4,20 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import type { ContactContent } from "@/lib/site-content";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const details = [
-  {
-    label: "Phone",
-    value: "+91 92053 81201",
-    href: "tel:+919205381201",
-  },
-  {
-    label: "Email",
-    value: "hiteshjangid1201@gmail.com",
-    href: "mailto:hiteshjangid1201@gmail.com",
-  },
-  {
-    label: "Location",
-    value: "331/12 Hans Enclave, near Rajeev Chowk, Gurugram, Haryana 122001",
-    href: undefined,
-  },
-];
-
-export default function Contact() {
+export default function Contact({ content }: { content: ContactContent }) {
   const sectionRef = useRef<HTMLElement>(null);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [feedback, setFeedback] = useState("");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const details = [
+    { label: "Phone", value: content.phone, href: `tel:${content.phone.replace(/[^+\d]/g, "")}` },
+    { label: "Email", value: content.email, href: `mailto:${content.email}` },
+    { label: "Location", value: content.address, href: undefined },
+  ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -98,17 +86,16 @@ export default function Contact() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 md:grid-cols-2 md:px-10">
         <div>
           <p data-contact-reveal className="mb-3 font-body text-xs font-bold uppercase tracking-widest2 text-bolt">
-            Contact Me
+            {content.eyebrow}
           </p>
           <h2
             data-contact-reveal
             className="mb-6 font-display text-4xl leading-[0.95] text-chalk sm:text-5xl md:text-6xl"
           >
-            Get In Touch
+            {content.title}
           </h2>
           <p data-contact-reveal className="mb-12 max-w-md font-body leading-relaxed text-steel">
-            Have questions about training, coaching, or personalized fitness
-            programs? Fill out the form and I will get back to you soon.
+            {content.description}
           </p>
 
           <ul className="space-y-6">

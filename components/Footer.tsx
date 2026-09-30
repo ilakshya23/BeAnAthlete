@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { scrollToSection } from "@/lib/scroll";
+import type { ContactContent } from "@/lib/site-content";
 
 const quickLinks = [
   { label: "Home", target: "#hero" },
@@ -11,7 +12,7 @@ const quickLinks = [
   { label: "Contact Us", target: "#contact" },
 ];
 
-export default function Footer() {
+export default function Footer({ contact }: { contact: ContactContent }) {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
@@ -55,18 +56,18 @@ export default function Footer() {
               Contact Us
             </p>
             <ul className="space-y-3 font-body text-sm text-steel">
-              <li>331/12 Hans Enclave, near Rajeev Chowk, Gurugram, Haryana 122001</li>
+              <li>{contact.address}</li>
               <li>
-                <a href="tel:+919205381201" className="transition-colors hover:text-bolt">
-                  +91 92053 81201
+                <a href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`} className="transition-colors hover:text-bolt">
+                  {contact.phone}
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:hiteshjangid1201@gmail.com"
+                  href={`mailto:${contact.email}`}
                   className="transition-colors hover:text-bolt"
                 >
-                  hiteshjangid1201@gmail.com
+                  {contact.email}
                 </a>
               </li>
             </ul>

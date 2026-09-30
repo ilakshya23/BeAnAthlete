@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import "./globals.css";
-import SmoothScroll from "@/components/SmoothScroll";
-import Header from "@/components/Header";
+import AppShell from "@/components/AppShell";
 
 export const metadata: Metadata = {
   title: "Be An Athlete | Strength & Conditioning Coaching",
@@ -16,11 +16,14 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const requestHeaders = await headers();
+  const host = requestHeaders.get("host") || "";
+  const adminHost = requestHeaders.get("x-beanathlete-admin") === "1" || host.startsWith("admin.");
   return (
     <html lang="en">
       <head>
@@ -32,9 +35,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-ink text-chalk antialiased">
-        <div className="grain-overlay" />
-        <Header />
-        <SmoothScroll>{children}</SmoothScroll>
+        <AppShell adminHost={adminHost}>{children}</AppShell>
       </body>
     </html>
   );

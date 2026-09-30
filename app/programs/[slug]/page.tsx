@@ -1,15 +1,16 @@
-import { programs } from "@/lib/programs";
 import { testimonials } from "@/lib/testimonials";
 import { notFound } from "next/navigation";
 import Footer from "@/components/Footer";
 import ProgramDetail from "@/components/ProgramDetail";
+import { getSiteContent } from "@/lib/content-store";
 
-export function generateStaticParams() {
-  return programs.map((p) => ({ slug: p.id }));
-}
+export const dynamic = "force-dynamic";
 
-export default function ProgramPage({ params }: { params: { slug: string } }) {
-  const program = programs.find((p) => p.id === params.slug);
+export default async function ProgramPage({ params }: { params: Promise<{ slug: string }> }) {
+  const content = await getSiteContent();
+  const programs = content.programs;
+  const { slug } = await params;
+  const program = programs.find((p) => p.id === slug);
   if (!program) return notFound();
 
   const others = programs.filter((p) => p.id !== program.id);
@@ -35,7 +36,7 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
         others={others}
         testimonials={relevantTestimonials}
       />
-      <Footer />
+      <Footer contact={content.contact} />
     </>
   );
 }

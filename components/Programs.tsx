@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { programs } from "@/lib/programs";
+import type { Program } from "@/lib/programs";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,7 +41,7 @@ function highlightText(text: string, terms: string[] = []) {
   );
 }
 
-export default function Programs() {
+export default function Programs({ programs }: { programs: Program[] }) {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 

@@ -2,7 +2,7 @@
 
 Strength & conditioning coaching website for Hitesh Sharma (CSCS), built with:
 
-- **Next.js 14** (App Router, TypeScript)
+- **Next.js 16** (App Router, TypeScript)
 - **Tailwind CSS** — yellow / black / white theme
 - **Framer Motion** — page transitions, hover/tap micro-interactions, scroll-reveal stagger
 - **GSAP + ScrollTrigger** — kinetic headline reveal, marquee ticker, scroll-triggered reveals
@@ -38,10 +38,31 @@ Fonts (Anton for display headlines, Work Sans for body text) are loaded via a
 Google Fonts `<link>` tag in `app/layout.tsx` rather than `next/font`, so no
 network access is required at build time — only at runtime in the browser.
 
-## Adding more Programs (currently 2 of a planned 10)
+## Admin panel
 
-All program content lives in one place: `lib/programs.ts`. To add a new
-program, just push another object into the array:
+The website content can be managed at `admin.beanathlete.in`. The admin panel
+supports the home hero, About Us, feature video, full program CRUD and ordering,
+Get In Touch details, media uploads, and password changes.
+
+Production requires these Vercel resources and variables:
+
+- Neon Postgres connected through the Vercel Marketplace (`DATABASE_URL`)
+- A public Vercel Blob store (`BLOB_READ_WRITE_TOKEN`)
+- `ADMIN_INITIAL_USERNAME` and `ADMIN_INITIAL_PASSWORD` for first-time setup
+- A random `ADMIN_AUTH_SECRET` of at least 32 characters
+
+The initial password is used only when the database has no administrator. Once
+the account exists, password changes are stored securely as salted scrypt hashes
+in Postgres. Admin sessions are signed, HTTP-only, and invalidated after a
+password change.
+
+Both `beanathlete.in` and `admin.beanathlete.in` should be attached to the same
+Vercel project. The proxy routes the admin subdomain to the protected editor.
+
+## Adding more Programs
+
+The bundled defaults live in `lib/programs.ts`. Once Neon is connected, use the
+Programs section of the admin panel to add, edit, delete, or reorder programs.
 
 ```ts
 {

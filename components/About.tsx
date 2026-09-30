@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { scrollToSection } from "@/lib/scroll";
+import type { AboutContent } from "@/lib/site-content";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,7 +15,7 @@ const stats = [
   { value: "Elite", label: "Athlete Performance" },
 ];
 
-export default function About() {
+export default function About({ content }: { content: AboutContent }) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -68,21 +69,21 @@ export default function About() {
         >
           {/* Coach portrait */}
           <img
-            src="/images/coach-profile.png"
-            alt="Hitesh Sharma, Strength & Conditioning Coach"
+            src={content.imageUrl}
+            alt={content.imageAlt}
             className="h-full w-full object-cover object-top"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
           <div className="absolute bottom-0 left-0 border-t-4 border-bolt bg-ink/90 px-6 py-4">
             <p className="font-body text-xs font-bold uppercase tracking-widest text-chalk">
-              Hitesh Sharma
+              {content.personName}
             </p>
             <div className="mt-1 flex max-w-sm flex-wrap items-baseline gap-x-2 gap-y-1">
               <span className="font-display text-4xl leading-none text-bolt">
-                CSCS
+                {content.credential}
               </span>
               <span className="font-body text-[10px] uppercase tracking-wide text-steel">
-                (Certified Strength and Conditioning Specialist)
+                ({content.credentialLabel})
               </span>
             </div>
           </div>
@@ -91,37 +92,26 @@ export default function About() {
         {/* Copy column */}
         <div className="flex flex-col justify-center">
           <p data-about-line className="mb-3 font-body text-xs font-bold uppercase tracking-widest2 text-bolt">
-            About Us
+            {content.eyebrow}
           </p>
           <h2
             data-about-line
             className="mb-8 font-display text-4xl leading-[0.95] text-chalk sm:text-5xl md:text-6xl"
           >
-            Know More
-            <br />
-            About Us
+            {content.title.split("\n").map((line, index) => (
+              <span key={`${line}-${index}`} className="block">{line}</span>
+            ))}
           </h2>
 
-          <p data-about-line className="mb-5 font-body leading-relaxed text-steel">
-            Certified Strength and Conditioning Coach with over five years of
-            experience designing and periodizing performance programs to
-            enhance athletic ability, reduce injury risk, and develop
-            lifelong movement skills. Specializes in strength training and
-            conditioning for all sports, fitness assessment, mobility,
-            rehabilitation, nutrition planning, youth athletic development,
-            biomechanics, and specialised strength and conditioning programs
-            for cricketers.
-          </p>
-
-          <p data-about-line className="mb-10 font-body leading-relaxed text-steel">
-            Has worked with elite cricket athletes including Mohit Sharma,
-            Sumit Kumar, Shivam Singh, Angkrish Raghuvanshi, and state-level
-            cricketers, and serves as Strength and Conditioning Coach. Former
-            professional cricketer with experience at BCCI/NCA Raw Talent,
-            MRF Pace Foundation, and Ranji Trophy camps. He is a Certified
-            Strength and Conditioning Specialist (CSCS) through the National
-            Strength and Conditioning Association (NSCA), USA.
-          </p>
+          {content.text.map((paragraph, index) => (
+            <p
+              key={index}
+              data-about-line
+              className={`${index === content.text.length - 1 ? "mb-10" : "mb-5"} font-body leading-relaxed text-steel`}
+            >
+              {paragraph}
+            </p>
+          ))}
 
           <div data-about-line className="mb-10 grid grid-cols-3 gap-4 border-y border-white/10 py-6">
             {stats.map((s) => (

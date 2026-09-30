@@ -5,9 +5,7 @@ import { motion } from "framer-motion";
 import gsap from "gsap";
 import Marquee from "@/components/Marquee";
 import { scrollToSection } from "@/lib/scroll";
-
-const LINE_1 = "BE AN";
-const LINE_2 = "ATHLETE";
+import type { HeroContent } from "@/lib/site-content";
 
 function SplitLine({ text, className }: { text: string; className?: string }) {
   return (
@@ -26,7 +24,7 @@ function SplitLine({ text, className }: { text: string; className?: string }) {
   );
 }
 
-export default function Hero() {
+export default function Hero({ content }: { content: HeroContent }) {
   const scopeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -73,9 +71,9 @@ export default function Hero() {
         muted
         loop
         playsInline
-        poster="/images/hero-poster.jpg"
+        poster={content.posterUrl}
       >
-        <source src="/videos/hero-bg.mp4" type="video/mp4" />
+        <source src={content.videoUrl} type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/30" />
       <div className="absolute inset-0 bg-ink/20" />
@@ -85,12 +83,12 @@ export default function Hero() {
           data-hero-sub
           className="mb-4 font-body text-xs font-bold uppercase tracking-widest2 text-bolt opacity-0"
         >
-          Train Like An Athlete
+          {content.eyebrow}
         </p>
 
         <h1 className="font-display text-[16vw] leading-[0.85] text-chalk sm:text-[12vw] md:text-[9vw] lg:text-[7.5vw]">
-          <SplitLine text={LINE_1} />
-          <SplitLine text={LINE_2} className="text-bolt" />
+          <SplitLine text={content.titleLine1} />
+          <SplitLine text={content.titleLine2} className="text-bolt" />
         </h1>
 
         <div

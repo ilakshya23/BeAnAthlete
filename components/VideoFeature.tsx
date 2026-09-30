@@ -4,10 +4,11 @@ import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import type { FeatureVideoContent } from "@/lib/site-content";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function VideoFeature() {
+export default function VideoFeature({ content }: { content: FeatureVideoContent }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -74,13 +75,13 @@ export default function VideoFeature() {
         <video
           ref={videoRef}
           className="h-full w-full object-cover"
-          poster="/images/video-poster.jpg"
+          poster={content.posterUrl}
           playsInline
           controls={playing}
           onPause={() => setPlaying(false)}
           onPlay={() => setPlaying(true)}
         >
-          <source src="/videos/feature.mp4" type="video/mp4" />
+          <source src={content.videoUrl} type="video/mp4" />
         </video>
 
         {!playing && (
@@ -107,10 +108,10 @@ export default function VideoFeature() {
 
         <div className="pointer-events-none absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink/80 to-transparent p-6 md:p-8">
           <p className="font-display text-xl tracking-tight text-chalk md:text-2xl">
-            Inside the Program
+            {content.title}
           </p>
           <p className="font-body text-sm text-steel">
-            A closer look at how sessions are built, coached, and progressed.
+            {content.subtitle}
           </p>
         </div>
       </div>

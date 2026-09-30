@@ -4,16 +4,20 @@ import VideoFeature from "@/components/VideoFeature";
 import Programs from "@/components/Programs";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import { getSiteContent } from "@/lib/content-store";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const content = await getSiteContent();
   return (
     <main>
-      <Hero />
-      <About />
-      <VideoFeature />
-      <Programs />
-      <Contact />
-      <Footer />
+      <Hero content={content.hero} />
+      <About content={content.about} />
+      <VideoFeature content={content.featureVideo} />
+      <Programs programs={content.programs} />
+      <Contact content={content.contact} />
+      <Footer contact={content.contact} />
     </main>
   );
 }
