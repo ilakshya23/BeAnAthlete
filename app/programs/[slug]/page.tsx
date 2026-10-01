@@ -1,4 +1,3 @@
-import { testimonials } from "@/lib/testimonials";
 import { notFound } from "next/navigation";
 import Footer from "@/components/Footer";
 import ProgramDetail from "@/components/ProgramDetail";
@@ -15,26 +14,11 @@ export default async function ProgramPage({ params }: { params: Promise<{ slug: 
 
   const others = programs.filter((p) => p.id !== program.id);
 
-  const relevantTestimonials =
-    program.id === "fast-bowling-performance"
-      ? []
-      : testimonials.filter((t) => {
-          if (t.program === "both") return true;
-          if (program.id === "one-on-one-program") {
-            return t.program === "programming";
-          }
-          if (program.id === "one-on-one-coaching") {
-            return t.program === "coaching";
-          }
-          return false;
-        });
-
   return (
     <>
       <ProgramDetail
         program={program}
         others={others}
-        testimonials={relevantTestimonials}
       />
       <Footer contact={content.contact} />
     </>

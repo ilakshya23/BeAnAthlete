@@ -6,8 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Program } from "@/lib/programs";
-import type { Testimonial } from "@/lib/testimonials";
-import TestimonialCarousel from "@/components/TestimonialCarousel";
 import FastBowlingPurchase from "@/components/FastBowlingPurchase";
 import BowlingTrainingVideo from "@/components/BowlingTrainingVideo";
 
@@ -46,11 +44,9 @@ function highlightText(text: string, terms: string[] = []) {
 export default function ProgramDetail({
   program,
   others,
-  testimonials,
 }: {
   program: Program;
   others: Program[];
-  testimonials: Testimonial[];
 }) {
   const heroRef = useRef<HTMLElement>(null);
 
@@ -167,24 +163,6 @@ export default function ProgramDetail({
           </motion.blockquote>
         </div>
       </section>
-
-      {/* Testimonials */}
-      {testimonials.length > 0 && (
-        <section className="bg-ink px-6 py-20 md:px-10 md:py-28">
-          <div className="mx-auto max-w-7xl">
-            <p className="mb-3 font-body text-xs font-bold uppercase tracking-widest2 text-bolt">
-              Testimonials
-            </p>
-            <h2 className="mb-14 font-display text-4xl leading-[0.95] text-chalk sm:text-5xl md:text-6xl">
-              What Athletes
-              <br />
-              Are Saying
-            </h2>
-
-            <TestimonialCarousel testimonials={testimonials} />
-          </div>
-        </section>
-      )}
 
       {/* Other programs */}
       {others.length > 0 && (
